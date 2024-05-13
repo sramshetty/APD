@@ -16,8 +16,7 @@ pip install open_clip_torch
 cd llm2vec
 pip install -e .
 
-cd ../flash-attention
-python setup.py install
+pip install flash-attn --no-build-isolation
 ```
 
 
