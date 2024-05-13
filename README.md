@@ -1,4 +1,6 @@
-# APD
+# APD (WIP)
+Extending ["APE: Aligning Pretrained Encoders to Quickly Learn Aligned Multimodal Representations"](https://arxiv.org/abs/2210.03927) to use decoders via ["LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders"](https://arxiv.org/abs/2404.05961).
+
 
 ### Setup
 ```bash
