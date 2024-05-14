@@ -24,13 +24,13 @@ class CocoDataset(Dataset):
         self.image_dir = image_dir
         self.captions = [cap_dict["caption"] for cap_dict in coco_dict.values()]
         self.image_ids = [cap_dict["image_id"] for cap_dict in coco_dict.values()]
-    
+
     def __getitem__(self, index, device="cuda"):
         img_id = self.image_ids[index]
-        img_path = glob(os.path.join(self.image_dir, str(img_id).zfill(12) + "*"))[-1]
+        img_path = glob(os.path.join(self.image_dir, str(img_id).zfill(12) + ".jpg"))[-1]
         image = self.preprocess(Image.open(img_path).convert('RGB')).unsqueeze(0).to(device)
 
         return self.captions[index], image
-    
+
     def __len__(self):
         return len(self.captions)

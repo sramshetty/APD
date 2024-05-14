@@ -47,8 +47,10 @@ class APDTrainer:
         save_steps: Optional[int] = 10000,
         save_path: Optional[str] = "./apd.pt",
         use_wandb: Optional[bool] = False,
-    ):
+        device: Optional[str] = "cuda",
+    ):  
         self.model.train()
+        self.model.to(device)
 
         criterion = ClipLoss() if loss_type == "clip" else SigLipLoss()
 
@@ -77,7 +79,7 @@ class APDTrainer:
                 curr_step = (ep * num_batches_per_epoch) + i
 
                 images, texts = batch
-                images = images.to(device="cuda", non_blocking=True)
+                images = images.to(device=device, non_blocking=True)
                 
                 data_time = time.time() - end
                 data_time_m.update(data_time)

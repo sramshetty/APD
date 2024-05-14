@@ -1,4 +1,3 @@
-from functools import partial
 from typing import List, Optional
 
 import numpy as np
@@ -63,8 +62,9 @@ class APDModel(nn.Module):
         features = self.vision_enc(image)
         return F.normalize(features, dim=-1) if normalize else features
 
-    def encode_text(self, text, normalize: bool = False):
-        x = self.text_enc.encode(text, show_progress_bar=False)
+    def encode_text(self, text, normalize: bool = False, device: str = "cuda"):
+        x = self.text_enc.encode(text, show_progress_bar=False, device=device)  # returns embeddings on cpu
+        x.to(device)
         for layer in self.text_proj:
             x = layer(x)
         return F.normalize(x, dim=-1) if normalize else x
@@ -81,10 +81,11 @@ class APDModel(nn.Module):
     def forward(
         self,
         image: Optional[torch.Tensor] = None,
-        text: Optional[torch.Tensor] = None,
+        text: Optional[List[str]] = None,
     ):
+        device = image.device
         image_features = self.encode_image(image, normalize=True) if image is not None else None
-        text_features = self.encode_text(text, normalize=True) if text is not None else None
+        text_features = self.encode_text(text, normalize=True, device=device) if text is not None else None
 
         if self.output_dict:
             out_dict = {
