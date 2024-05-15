@@ -53,11 +53,6 @@ class APDModel(nn.Module):
         # lock image tower as per LiT - https://arxiv.org/abs/2111.07991
         self.vision_enc.lock(unlocked_groups=unlocked_groups, freeze_bn_stats=freeze_bn_stats)
 
-    @torch.jit.ignore
-    def set_grad_checkpointing(self, enable=True):
-        self.vision_enc.set_grad_checkpointing(enable)
-        self.transformer.grad_checkpointing = enable
-
     def encode_image(self, image, normalize: bool = False):
         features = self.vision_enc(image)
         return F.normalize(features, dim=-1) if normalize else features
