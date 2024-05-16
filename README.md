@@ -8,7 +8,7 @@ conda create -n "apd" python=3.10
 conda activate apd
 
 conda install nvidia::cuda-toolkit
-export CUDA_HOME=$CONDA_PREFIX
+export CUDA_HOME=CONDA_PREFIX
 
 conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 
@@ -27,15 +27,15 @@ pip install flash-attn --no-build-isolation
 
 **Zero-shot Classification**
 | Text Encoder | Vision Encoder + Pretrained | Dataset | acc1 | acc5 | mean_per_class_recall |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | cifar10 | $0.9087$ | $0.9948$ | $0.9083$ |
-| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | cifar100 | $0.4747$ | $0.7623$ | $0.475$ |
-| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | imagenet1k | $0.2544$ | $0.5058$ | $0.2544$ |
+|-------------|-------------|:-------------:|:-------------:|:-------------:|:-------------:|
+| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | cifar10 | 0.9087 | 0.9948 | 0.9083 |
+| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | cifar100 | 0.4747 | 0.7623 | 0.475 |
+| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | imagenet1k | 0.2544 | 0.5058 | 0.2544 |
 
 **Zero-shot Retrieval**
 | Text Encoder | Vision Encoder + Pretrained | Dataset | image_retrieval_recall@5 | text_retrieval_recall@5 |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | mscoco_captions | $0.6604$ | $0.7982$ |
+|-------------|-------------|:-------------:|:-------------:|:-------------:|
+| LLM2Vec-Sheared-LLaMA-mntp-supervised | ViT-B-32 + laion2b_s34b_b79k | mscoco_captions | 0.6604 | 0.7982 |
 
 
 ### Citations
