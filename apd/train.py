@@ -47,6 +47,7 @@ class APDTrainer:
         save_steps: Optional[int] = 10000,
         save_path: Optional[str] = "./apd.pt",
         use_wandb: Optional[bool] = False,
+        run_name: Optional[str] = "",
         device: Optional[str] = "cuda",
     ):  
         self.model.train()
@@ -61,7 +62,9 @@ class APDTrainer:
             wandb.login()
             wandb.init(
                 project="aligning_pretrained_decoders",
+                name=run_name,
                 config={
+                    "projection_dims": self.model.text_proj_sizes,
                     "learning_rate": optimizer.param_groups[0]['lr'],
                     "epochs": num_epochs,
                     "loss_type": loss_type,

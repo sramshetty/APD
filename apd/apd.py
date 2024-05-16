@@ -28,6 +28,7 @@ class APDModel(nn.Module):
         self.lock_image_tower()
 
         self.text_enc = text_enc
+        self.text_proj_sizes = text_proj_sizes
         # freeze text tower
         for param in self.text_enc.parameters():
             param.requires_grad = False
@@ -59,7 +60,7 @@ class APDModel(nn.Module):
 
     def encode_text(self, text, normalize: bool = False, device: str = "cuda"):
         x = self.text_enc.encode(text, show_progress_bar=False, device=device)  # returns embeddings on cpu
-        x.to(device)
+        x = x.to(device)
         for layer in self.text_proj:
             x = layer(x)
         return F.normalize(x, dim=-1) if normalize else x
